@@ -17,13 +17,14 @@ if [[ $REPLY =~ ^[Yy]$ ]]
   then
     while [ $cur -le $end ]
       do
-        if [[ `date -d $cur +%w` == 3 ]]
+        if [ $(date -d $cur +%w) == "3" ]
           then
             echo -e "LWDW code here, $cur, `date -d $cur`"
             #touch_lwdw $cur $lwdw_episode
-        elif [[ `date -d $cur +%w` == 6 ]]
+          elif [ $(date -d $cur +%w) == "6" ]
             echo -e "LGCW code here, $cur, `date -d $cur`"
             #touch_lgcw $cur $lgcw_episode
+          fi
         fi
         cur=`date -d "$cur+1days" +%Y%m%d`
     done
