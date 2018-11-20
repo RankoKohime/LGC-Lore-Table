@@ -10,10 +10,11 @@ CUR = MAKE_YEAR + "0101"
 # End Date
 END = MAKE_YEAR + "1231"
 
+print("Are you sure you want to run?  Will be working on calendar year " + MAKE_YEAR)
+
 # Loop through every day in the year, and create directories
 # and files as appropriate, stopping at the end of the year
 
-print("Are you sure you want to run?  Will be working on calendar year " + MAKE_YEAR)
 
 #LGCW = All dates/episode numbers of LGCW
 
