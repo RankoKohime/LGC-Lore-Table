@@ -1,67 +1,70 @@
 #!/usr/bin/python3
-from datetime import date
+import datetime
+import dateutil
+from dateutil import rrule
+import os
+import sys
+#from dateutil.parser import *
 
-# Get next year
-MAKE_YEAR = str(date.today().year + 1)
+# Set the working year, which should be next year.
+MAKE_YEAR = datetime.date.today().year + 1
 
-# Start date
-CUR = MAKE_YEAR + "0101"
+# Start date (January 1st of MAKE_YEAR)
+CUR = datetime.date(year=MAKE_YEAR, month=1, day=1)
 
-# End Date
-END = MAKE_YEAR + "1231"
+# End Date (December 31st of next year)
+END = datetime.date(year=MAKE_YEAR, month=12, day=31)
 
-print("Are you sure you want to run?  Will be working on calendar year " + MAKE_YEAR)
+# Checks the difference between two dates for calculating the episode number
+# https://stackoverflow.com/questions/8419564/difference-between-two-dates-in-python
 
-# Loop through every day in the year, and create directories
-# and files as appropriate, stopping at the end of the year
-
-
-#LGCW = All dates/episode numbers of LGCW
-
-#LWDW = All dates/episode numbers of LWDW
-
-#for episode in LGCW:
-#------------------------------------------
-# All code below this point is shell scrap!
-#------------------------------------------
-#read -n 1
-#if [[ $REPLY =~ ^[Yy]$ ]]
-#  then
-#    while [ $cur -le $end ]
-#      do
-#        if [ $(date -d $cur +%w) == "3" ]
-#          then
-#            echo -e "LWDW code here, $cur, `date -d $cur`"
-#            touch_lwdw $cur $lwdw_episode
-#          elif [ $(date -d $cur +%w) == "6" ]
-#            echo -e "LGCW code here, $cur, `date -d $cur`"
-#            touch_lgcw $cur $lgcw_episode
-#          fi
-#        fi
-#        cur=`date -d "$cur+1days" +%Y%m%d`
-#    done
-#  else
-#    echo -e "Cancelling"
-#    exit 1
-#fi
+# Arguments are
+# d1 = first episode date
+# d2 = current episode date
+def episode_num(d1, d2):
+    weeks = rrule.rrule(rrule.WEEKLY, dtstart=d1, until=d2)
+    return weeks.count()
 
 # Creates the seasonal directory if it doesn't exist,
 # then touches all .md files for that season.
-#touch_file()
-#{
+def touch_file(show, make_year, season, ep_date, ep_num):
+    SEASONAL_DIRECTORY = show + '/' + str(make_year) + ' - Season ' + str(season)
+  # Arguments are
+  # 1. Which show
+  # 2. Year being generated
+  # 3. Which season for the individual show
+  # 4. Episode date
+  # 5. Episode number
+
   # Create the directory
-#  seasonal_directory=$1/$2
-#  if [ -d $seasonal_directory ]; then
-#    echo -e "We are creating the directory $seasonal_directory"
-    #mkdir -p $seasonal_directory
-#  fi
+    if not os.path.isdir(SEASONAL_DIRECTORY):
+        print("Created the directory " + SEASONAL_DIRECTORY)
+        os.makedirs(SEASONAL_DIRECTORY)
 
   # Touch the file in it's naughty place
-#  episode_date=$cur
-#  episode_date_hr=`date -d "$episode_date" +%Y-%m-%d`
-#  episode_number=1  #Placeholder
-#  episode_name=$episode_date-$episode_number.md
-#  echo -e "We are creating the file $seasonal_directory/$episode_name"
-  #touch $episode_name
+    EPISODE_DATE = datetime.datetime.strptime(str(CUR), '%Y-%m-%d').strftime('%Y%m%d')
+    EPISODE_NAME = str(EPISODE_DATE) + "-" + str(ep_num).zfill(4) + ".md"
+    print("Created the file " + SEASONAL_DIRECTORY + "/" + EPISODE_NAME)
+    #touch $seasonal_directory/$episode_name
+    f = open(SEASONAL_DIRECTORY + "/" + EPISODE_NAME, "w")
+    f.write(str(ep_num) + '. \n     * ' + str(ep_date) + '\n        * [Showzen]()\n        * [Patreon]()\n        * [UNCUT Patreon]()\n     * <span style="color:red">LGC Weekly:</span> \n')
 
-#}
+# Checking sanity manually at runtime
+if not input("Are you sure you want to run?  Will be working on calendar year " + str(MAKE_YEAR) + " (y/n): ").lower().strip()[:1] == "y": sys.exit(1)
+
+# Loop through every day in the year, and create directories
+# and files as appropriate, stopping at the end of the year (but not the day before)
+while CUR <= END:
+    if CUR.weekday() == 2:
+        # Test if $cur is a Wednesday, then generate LWDW template
+            LWDW_START = datetime.datetime(2016, 2, 17)  # Adjusted from 2016, 2, 10 because math.  ¯\_(ツ)_/¯
+            SEASON = MAKE_YEAR - 2015
+            EP_NUM = episode_num(LWDW_START, CUR)
+            touch_file("LWDW", MAKE_YEAR, SEASON, CUR, EP_NUM)
+        # Test if $cur is a Saturday, then generate LGCW template
+    elif CUR.weekday() == 5:
+            LGCW_START = datetime.datetime(2012, 8, 25)  # Adjusted from 2012, 8, 18 because math.  ¯\_(ツ)_/¯
+            SEASON = MAKE_YEAR - 2011
+            EP_NUM = episode_num(LGCW_START, CUR)
+            touch_file("LGCW", MAKE_YEAR, SEASON, CUR, EP_NUM)
+    CUR = CUR + datetime.timedelta(days=1)
