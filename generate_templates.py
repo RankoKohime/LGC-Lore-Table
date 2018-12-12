@@ -47,7 +47,10 @@ def touch_file(show, make_year, season, ep_date, ep_num):
     print("Created the file " + SEASONAL_DIRECTORY + "/" + EPISODE_NAME)
     #touch $seasonal_directory/$episode_name
     f = open(SEASONAL_DIRECTORY + "/" + EPISODE_NAME, "w")
-    f.write(str(ep_num) + '. \n     * ' + str(ep_date) + '\n        * [Showzen]()\n        * [Patreon]()\n        * [UNCUT Patreon]()\n     * <span style="color:red">LGC Weekly:</span> \n')
+    if show == "LGCW":
+        f.write(str(ep_num) + '. \n     * ' + str(ep_date) + '\n        * [Showzen]()\n        * [Patreon]()\n        * [UNCUT Patreon]()\n     * <span style="color:red">LGC Weekly:</span> \n')
+    elif show == "LWDW":
+        f.write(str(ep_num) + '. \n     * ' + str(ep_date) + '\n        * [Patreon]()\n        * [UNCUT Patreon]()\n')
 
 # Checking sanity manually at runtime
 if not input("Are you sure you want to run?  Will be working on calendar year " + str(MAKE_YEAR) + " (y/n): ").lower().strip()[:1] == "y": sys.exit(1)
@@ -57,14 +60,14 @@ if not input("Are you sure you want to run?  Will be working on calendar year " 
 while CUR <= END:
     if CUR.weekday() == 2:
         # Test if $cur is a Wednesday, then generate LWDW template
-            LWDW_START = datetime.datetime(2016, 2, 17)  # Adjusted from 2016, 2, 10 because math.  ¯\_(ツ)_/¯
-            SEASON = MAKE_YEAR - 2015
-            EP_NUM = episode_num(LWDW_START, CUR)
-            touch_file("LWDW", MAKE_YEAR, SEASON, CUR, EP_NUM)
-        # Test if $cur is a Saturday, then generate LGCW template
+        LWDW_START = datetime.datetime(2016, 2, 17)  # Adjusted from 2016, 2, 10 because math.  ¯\_(ツ)_/¯
+        SEASON = MAKE_YEAR - 2015
+        EP_NUM = episode_num(LWDW_START, CUR)
+        touch_file("LWDW", MAKE_YEAR, SEASON, CUR, EP_NUM)
+    # Test if $cur is a Saturday, then generate LGCW template
     elif CUR.weekday() == 5:
-            LGCW_START = datetime.datetime(2012, 8, 25)  # Adjusted from 2012, 8, 18 because math.  ¯\_(ツ)_/¯
-            SEASON = MAKE_YEAR - 2011
-            EP_NUM = episode_num(LGCW_START, CUR)
-            touch_file("LGCW", MAKE_YEAR, SEASON, CUR, EP_NUM)
+        LGCW_START = datetime.datetime(2012, 8, 25)  # Adjusted from 2012, 8, 18 because math.  ¯\_(ツ)_/¯
+        SEASON = MAKE_YEAR - 2011
+        EP_NUM = episode_num(LGCW_START, CUR)
+        touch_file("LGCW", MAKE_YEAR, SEASON, CUR, EP_NUM)
     CUR = CUR + datetime.timedelta(days=1)
