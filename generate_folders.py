@@ -29,6 +29,8 @@ def episode_num(d1, d2):
 # then touches all .md files for that season.
 def touch_file(show, make_year, season, ep_date, ep_num):
     SEASONAL_DIRECTORY = show + '/' + str(make_year) + ' - Season ' + str(season)
+    EPISODE_DATE = datetime.datetime.strptime(str(CUR), '%Y-%m-%d').strftime('%Y%m%d')
+    EPISODE_NAME = str(EPISODE_DATE) + "-" + str(ep_num).zfill(4)
   # Arguments are
   # 1. Which show
   # 2. Year being generated
@@ -36,21 +38,15 @@ def touch_file(show, make_year, season, ep_date, ep_num):
   # 4. Episode date
   # 5. Episode number
 
-  # Create the directory
+  # Create the seasonal directory
     if not os.path.isdir(SEASONAL_DIRECTORY):
         print("Created the directory " + SEASONAL_DIRECTORY)
         os.makedirs(SEASONAL_DIRECTORY)
 
-  # Touch the file in it's naughty place
-    EPISODE_DATE = datetime.datetime.strptime(str(CUR), '%Y-%m-%d').strftime('%Y%m%d')
-    EPISODE_NAME = str(EPISODE_DATE) + "-" + str(ep_num).zfill(4) + ".md"
-    print("Created the file " + SEASONAL_DIRECTORY + "/" + EPISODE_NAME)
-    #touch $seasonal_directory/$episode_name
-    f = open(SEASONAL_DIRECTORY + "/" + EPISODE_NAME, "w")
-    if show == "LGCW":
-        f.write(str(ep_num) + '. \n     * ' + str(ep_date) + '\n        * [Showzen]()\n        * [Patreon]()\n        * [UNCUT Patreon]()\n     * <span style="color:red">LGC Weekly:</span> \n')
-    elif show == "LWDW":
-        f.write(str(ep_num) + '. \n     * ' + str(ep_date) + '\n        * [Patreon]()\n        * [UNCUT Patreon]()\n')
+  # Create the episode directory
+    if not os.path.isdir(SEASONAL_DIRECTORY + "/" + EPISODE_NAME):
+        print("Created the directory " + SEASONAL_DIRECTORY + "/" + EPISODE_NAME)
+        os.makedirs(SEASONAL_DIRECTORY + "/" + EPISODE_NAME)
 
 # Checking sanity manually at runtime
 if not input("Are you sure you want to run?  Will be working on calendar year " + str(MAKE_YEAR) + " (y/n): ").lower().strip()[:1] == "y": sys.exit(1)
