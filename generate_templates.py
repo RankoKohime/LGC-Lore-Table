@@ -7,7 +7,11 @@ import sys
 #from dateutil.parser import *
 
 # Set the working year, given as the singluar argument when called.
-MAKE_YEAR = int(sys.argv[1])
+try:
+    MAKE_YEAR = int(sys.argv[1])
+except IndexError:
+    print('I think you forgot the year there Brad.')
+    sys.exit(1)
 
 # Start date (January 1st of MAKE_YEAR)
 CUR = datetime.date(year=MAKE_YEAR, month=1, day=1)
