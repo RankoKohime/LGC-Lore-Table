@@ -52,9 +52,9 @@ def touch_file(show, make_year, season, ep_date, ep_num):
     #touch $seasonal_directory/$episode_name
     f = open(SEASONAL_DIRECTORY + "/" + EPISODE_NAME, "w")
     if show == "LGCW":
-        f.write(str(ep_num) + '. \n     * ' + str(ep_date) + '\n        * [Showzen]()\n        * [Patreon]()\n        * [UNCUT Patreon]()\n     * <span style="color:red">LGC Weekly:</span> \n')
+        f.write(str(ep_num) + '. []()\n     * ' + str(ep_date) + '\n        * [Showzen]()\n        * [Patreon]()\n        * [UNCUT Patreon]()\n     * <span style="color:red">LGC Weekly:</span> \n')
     elif show == "LWDW":
-        f.write(str(ep_num) + '. \n     * ' + str(ep_date) + '\n        * [Patreon]()\n        * [UNCUT Patreon]()\n')
+        f.write(str(ep_num) + '. []()\n     * ' + str(ep_date) + '\n        * [Patreon]()\n        * [UNCUT Patreon]()\n')
 
 # Checking sanity manually at runtime
 if not input("Are you sure you want to run?  Will be working on calendar year " + str(MAKE_YEAR) + " (y/n): ").lower().strip()[:1] == "y": sys.exit(1)
