@@ -1,7 +1,13 @@
+Fuck You All
+============
+
+Sung by Jordan
+--------------
+
 The screen glows white on the desktop tonight
 Not a footprint to be seen
 A kingdom of isolation
-And it looks like I'm the queen
+And it looks like I'm the king
 
 The wind is howling like this swirling storm inside
 Couldn't keep it in, heaven knows I've tried
@@ -44,4 +50,3 @@ That perfect girl is gone
 Here I stand in the light of day
 Let the storm rage on
 The cold never bothered me anyway
-
