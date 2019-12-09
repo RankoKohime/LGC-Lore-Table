@@ -1,1 +1,4 @@
-A place to buy used liquor.
+Used Liquor Store
+=================
+
+A place to buy discount used liquors.
