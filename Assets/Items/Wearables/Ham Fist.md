@@ -3,4 +3,4 @@ Ham Fists
 
 AKA Fist of the Northam /pun
 
-Litterally hams that you shove your hands into.
+Literally hams that you shove your hands into.
