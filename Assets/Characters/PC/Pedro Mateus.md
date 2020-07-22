@@ -8,3 +8,5 @@ Pedro Mateus
 *He double-fists combustible lemons.
 
 *Worships PortuJesus
+
+*Is a cricket-mancer
