@@ -32,7 +32,7 @@ def episode_num(d1, d2):
 # Creates the seasonal directory if it doesn't exist,
 # then touches all .md files for that season.
 def touch_file(show, make_year, season, ep_date, ep_num):
-    SEASONAL_DIRECTORY = show + '/' + str(make_year) + ' - Season ' + str(season)
+    SEASONAL_DIRECTORY = show + '/' + str(make_year) + '_Season_' + str(season)
     EPISODE_DATE = datetime.datetime.strptime(str(CUR), '%Y-%m-%d').strftime('%Y%m%d')
     EPISODE_NAME = str(EPISODE_DATE) + "-" + str(ep_num).zfill(4)
   # Arguments are
@@ -44,8 +44,8 @@ def touch_file(show, make_year, season, ep_date, ep_num):
 
   # Create the seasonal directory
     if not os.path.isdir(SEASONAL_DIRECTORY):
-        print("Created the directory " + SEASONAL_DIRECTORY)
-        os.makedirs(SEASONAL_DIRECTORY)
+        print(SEASONAL_DIRECTORY + "does not exist, ERROR!  Go make the dataset")
+        sys.exit(1)
 
   # Create the episode directory
     if not os.path.isdir(SEASONAL_DIRECTORY + "/" + EPISODE_NAME):
