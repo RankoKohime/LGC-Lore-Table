@@ -1,4 +1,4 @@
 Dark Prayer
 ===========
 
-Pray to Beelzebub for assisstance in battle.
+Pray to Beelzebub for assistance in battle.
