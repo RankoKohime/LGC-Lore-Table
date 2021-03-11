@@ -1,12 +1,14 @@
 Pedro Mateus
 ============
 
-*He sniffs markers.
+* He sniffs markers.
 
-*Forever following the flame.
+* Forever following the flame.
 
-*He double-fists combustible lemons.
+* He double-fists combustible lemons.
 
-*Worships PortuJesus
+* Worships PortuJesus
 
-*Is a cricket-mancer
+* Is a cricket-mancer
+
+* Previously starred in Excel Saga
